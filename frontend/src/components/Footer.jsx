@@ -120,28 +120,9 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between">
-            <div className="text-sm text-gray-400 text-center sm:text-left mb-4 sm:mb-0">
+          <div className="flex items-center justify-center">
+            <div className="text-sm text-gray-400">
               © {new Date().getFullYear()} MA Equal Foundation. All rights reserved.
-            </div>
-            <div>
-              <ul className="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6 text-sm text-gray-400">
-                <li className="mb-2 sm:mb-0">
-                  <Link to="/privacy" className="hover:text-blue-400 transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li className="mb-2 sm:mb-0">
-                  <Link to="/terms" className="hover:text-blue-400 transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li className="mb-2 sm:mb-0">
-                  <Link to="/sitemap" className="hover:text-blue-400 transition-colors">
-                    Sitemap
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
