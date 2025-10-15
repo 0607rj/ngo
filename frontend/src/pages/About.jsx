@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { 
   FaGraduationCap,
   FaHeart,
@@ -211,9 +212,12 @@ export default function About() {
             Together, we can make a lasting difference in our communities. Get
             involved today!
           </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-            Volunteer With Us
-          </button>
+          <Link 
+            to="/volunteer" 
+            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            🤝 Volunteer With Us
+          </Link>
         </div>
       </section>
     </div>

@@ -69,6 +69,9 @@ export default function Navbar() {
           <Link to="/causes" className={getLinkClassName('/causes')}>
             Causes
           </Link>
+          <Link to="/volunteer" className={getLinkClassName('/volunteer')}>
+            Volunteer
+          </Link>
           <Link to="/contact" className={getLinkClassName('/contact')}>
             Contact
           </Link>
@@ -103,6 +106,13 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Causes
+            </Link>
+            <Link 
+              to="/volunteer" 
+              className={`block ${getLinkClassName('/volunteer')}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Volunteer
             </Link>
             <Link 
               to="/contact" 
