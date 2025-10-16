@@ -548,18 +548,12 @@ export default function Volunteer() {
           <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
             Join hundreds of volunteers who are already creating positive change in communities across the region.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <a
               href="#volunteer-form"
               className="bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-green-50 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Start Volunteering Today
-            </a>
-            <a
-              href="/contact"
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-colors"
-            >
-              Contact Us for More Info
             </a>
           </div>
         </div>
