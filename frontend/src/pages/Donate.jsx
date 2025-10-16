@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaQrcode, FaHandHoldingHeart, FaHeart, FaGraduationCap, FaSpinner } from 'react-icons/fa';
 import { RiSecurePaymentLine, RiHeartsFill } from 'react-icons/ri';
 import qr from '../assets/qr.jpg';
 
+import nav from '../assets/nav.png';
+
+
 export default function Donate() {
+  const navigate = useNavigate();
   const [selectedAmount, setSelectedAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [donorInfo, setDonorInfo] = useState({
     name: '',
     email: '',
@@ -67,24 +73,30 @@ export default function Donate() {
       const data = await response.json();
       
       if (response.ok) {
-        // Show detailed success message
+        // Navigate to beautiful success page instead of alert
         const receiptNumber = data.donation?.receiptNumber || 'N/A';
-        alert(`🎉 DONATION SUCCESSFUL! 🎉
-
-Thank you ${donorInfo.name} for your generous donation of ₹${amount}!
-
-✅ Payment Status: Completed
-📄 Receipt Number: ${receiptNumber}
-📧 Confirmation Email: Sent to ${donorInfo.email}
-
-Your contribution makes a real difference in creating educational opportunities. We will keep you updated on how your donation is being used.
-
-Thank you for supporting MA Equal Foundation! 💙`);
+        
+        // Prepare donation data for success page
+        const donationData = {
+          name: paymentData.donor.name,
+          amount: paymentData.amount,
+          receiptNumber: receiptNumber,
+          email: paymentData.donor.email,
+          paymentId: paymentData.razorpay_payment_id,
+          date: new Date().toLocaleString('en-IN')
+        };
         
         // Reset form
         setSelectedAmount('');
         setCustomAmount('');
         setDonorInfo({ name: '', email: '', phone: '' });
+        setLoading(false);
+        
+        // Navigate to success page with donation data
+        navigate('/donation-success', { 
+          state: { donationData },
+          replace: true 
+        });
       } else {
         const errorMsg = data.message || 'Payment verification failed';
         alert(`❌ Payment Verification Failed
@@ -151,9 +163,12 @@ Please have your payment details ready when contacting us.`);
     // Validate form
     const validationErrors = validateForm();
     if (validationErrors.length > 0) {
-      alert('Please correct the following errors:\n\n' + validationErrors.join('\n'));
+      setError(validationErrors.join(', '));
+      setTimeout(() => setError(''), 5000); // Clear error after 5 seconds
       return;
     }
+
+    setError(''); // Clear any previous errors
 
     // Create order on backend
     const orderData = await createRazorpayOrder(amount);
@@ -165,7 +180,7 @@ Please have your payment details ready when contacting us.`);
       currency: orderData.currency,
       name: "MA Equal Foundation",
       description: "Donation for Education & Social Welfare",
-      image: "/logo192.png", // Add your logo here
+      image: nav, // Add your logo here
       order_id: orderData.id,
       handler: function (response) {
         // Verify payment on backend
@@ -342,6 +357,13 @@ Please have your payment details ready when contacting us.`);
                   min="1"
                 />
               </div>
+
+              {/* Error Message Display */}
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4">
+                  <p className="text-sm font-medium">{error}</p>
+                </div>
+              )}
 
               <button
                 onClick={loadRazorpay}

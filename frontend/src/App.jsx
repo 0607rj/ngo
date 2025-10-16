@@ -6,6 +6,7 @@ import About from './pages/About';
 import Causes from './pages/Causes';
 import Contact from './pages/Contact';
 import Volunteer from './pages/Volunteer';
+import DonationSuccessNew from './pages/DonationSuccessNew';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -24,6 +25,8 @@ export default function App(){
             <Route path="/contact" element={<Contact />} />
             <Route path="/causes" element={<Causes />} />
             <Route path="/volunteer" element={<Volunteer />} />
+            <Route path="/donation-success" element={<DonationSuccessNew />} />
+            <Route path="/test-success" element={<DonationSuccessNew />} />
           </Routes>
         </main>
         <Footer />
