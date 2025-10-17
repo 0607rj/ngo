@@ -47,7 +47,9 @@ export default function Donate() {
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to create order');
+        // Show detailed error message from backend
+        const errorMessage = data.errors ? data.errors.join('\n') : data.message || 'Failed to create order';
+        throw new Error(errorMessage);
       }
 
       return data;
