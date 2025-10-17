@@ -34,11 +34,14 @@ app.use(cors({
     "http://localhost:5173",
     "http://localhost:5174", 
     "http://localhost:5175",
+    "https://ma-equal-foundadtion.netlify.app",
+    "https://maequalfoundation.netlify.app",
     process.env.FRONTEND_URL
   ].filter(Boolean),
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  credentials: true,
+  optionsSuccessStatus: 200 // For legacy browser support
 }));
 
 // Routes with specific rate limiting
