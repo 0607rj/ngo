@@ -127,10 +127,6 @@ Phone: +91 7906891253
                         <p className="text-sm text-gray-600">Organization</p>
                         <p className="font-semibold text-gray-800">MA Equal Foundation</p>
                       </div>
-                      <div>
-                        <p className="text-sm text-gray-600">Tax Deductible</p>
-                        <p className="font-semibold text-green-600">Yes, under 80G</p>
-                      </div>
                     </div>
                   </div>
                 </div>

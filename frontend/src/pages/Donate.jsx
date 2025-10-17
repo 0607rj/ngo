@@ -61,9 +61,12 @@ export default function Donate() {
     }
   };
 
-  // Verify payment on backend
+  // Verify payment on backend (background process - no loading state changes)
   const verifyPayment = async (paymentData) => {
     try {
+      console.log('🔄 Verifying payment with backend...', paymentData);
+      console.log('🌐 Backend URL:', import.meta.env.VITE_BACKEND_URL);
+      
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/donations/verify-payment`, {
         method: 'POST',
         headers: {
@@ -72,52 +75,20 @@ export default function Donate() {
         body: JSON.stringify(paymentData),
       });
 
+      console.log('📡 Response status:', response.status);
       const data = await response.json();
+      console.log('📋 Response data:', data);
       
       if (response.ok) {
-        // Navigate to beautiful success page instead of alert
-        const receiptNumber = data.donation?.receiptNumber || 'N/A';
-        
-        // Prepare donation data for success page
-        const donationData = {
-          name: paymentData.donor.name,
-          amount: paymentData.amount,
-          receiptNumber: receiptNumber,
-          email: paymentData.donor.email,
-          paymentId: paymentData.razorpay_payment_id,
-          date: new Date().toLocaleString('en-IN')
-        };
-        
-        // Reset form
-        setSelectedAmount('');
-        setCustomAmount('');
-        setDonorInfo({ name: '', email: '', phone: '' });
-        setLoading(false);
-        
-        // Navigate to success page with donation data
-        navigate('/donation-success', { 
-          state: { donationData },
-          replace: true 
-        });
+        console.log('✅ Payment verification successful!');
+        return data; // Return the response data
       } else {
-        const errorMsg = data.message || 'Payment verification failed';
-        alert(`❌ Payment Verification Failed
-
-${errorMsg}
-
-Please contact our support team:
-📞 Phone: +91 7906891253
-💬 WhatsApp: +91 7906891253
-📧 Email: maequalfoundationtrust@gmail.com
-
-Please have your payment details ready when contacting us.`);
-        throw new Error(errorMsg);
+        console.error('❌ Payment verification failed:', data);
+        throw new Error(data.message || data.error || 'Payment verification failed');
       }
     } catch (error) {
-      console.error('Error verifying payment:', error);
-      alert('Payment verification failed. Please contact support with your payment details.');
-    } finally {
-      setLoading(false);
+      console.error('💥 Error in payment verification process:', error);
+      throw error; // Re-throw for handling in caller
     }
   };
 
@@ -185,13 +156,44 @@ Please have your payment details ready when contacting us.`);
       image: nav, // Add your logo here
       order_id: orderData.id,
       handler: function (response) {
-        // Verify payment on backend
+        console.log('✅ Payment completed successfully!', response);
+        
+        // Prepare success data immediately
+        const successData = {
+          name: donorInfo.name,
+          amount: amount,
+          receiptNumber: 'Generated after verification',
+          email: donorInfo.email,
+          paymentId: response.razorpay_payment_id,
+          date: new Date().toLocaleString('en-IN')
+        };
+        
+        console.log('🚀 Redirecting to success page immediately...');
+        
+        // Reset form and loading state
+        setSelectedAmount('');
+        setCustomAmount('');
+        setDonorInfo({ name: '', email: '', phone: '' });
+        setLoading(false);
+        
+        // Navigate immediately - payment was successful in Razorpay
+        navigate('/donation-success', { 
+          state: { donationData: successData },
+          replace: true 
+        });
+        
+        // Start verification in background (don't wait for it)
         verifyPayment({
           razorpay_order_id: response.razorpay_order_id,
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_signature: response.razorpay_signature,
           donor: donorInfo,
           amount: amount
+        }).then(() => {
+          console.log('✅ Background verification completed');
+        }).catch((error) => {
+          console.error('❌ Background verification failed:', error);
+          // Don't show error to user since they're already on success page
         });
       },
       prefill: {
@@ -216,8 +218,14 @@ Please have your payment details ready when contacting us.`);
 
     const razorpay = new window.Razorpay(options);
     razorpay.on('payment.failed', function (response) {
+      console.error('💳 Payment failed:', response);
       setLoading(false);
       alert(`Payment failed: ${response.error.description}`);
+    });
+    
+    // Add success logging
+    razorpay.on('payment.success', function (response) {
+      console.log('🎉 Razorpay payment.success event fired:', response);
     });
     
     razorpay.open();
