@@ -4,6 +4,12 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import donationRoutes from "./routes/donations.js";
+import { 
+  generalAPILimiter, 
+  contactSpamLimiter, 
+  donationSecurityLimiter 
+} from "./middleware/rateLimiting.js";
+import { securityMiddleware } from "./middleware/security.js";
 
 // Load environment variables
 dotenv.config();
@@ -15,6 +21,13 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Apply security monitoring
+app.use(securityMiddleware);
+
+// Apply general rate limiting to all requests
+app.use(generalAPILimiter);
+
 app.use(cors({
   origin: [
     "http://localhost:3000",
@@ -28,9 +41,9 @@ app.use(cors({
   credentials: true
 }));
 
-// Routes
-app.use("/api/contact", contactRoutes);
-app.use("/api/donations", donationRoutes);
+// Routes with specific rate limiting
+app.use("/api/contact", contactSpamLimiter, contactRoutes);
+app.use("/api/donations", donationSecurityLimiter, donationRoutes);
 
 // Home route
 app.get("/", (req, res) => {

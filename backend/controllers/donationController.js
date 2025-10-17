@@ -52,6 +52,10 @@ const validateAmount = (amount) => {
 export const createOrder = async (req, res) => {
   try {
     const { amount, donor } = req.body;
+    const clientIP = req.ip || req.connection.remoteAddress;
+    
+    // Log donation attempt for monitoring
+    console.log(`💰 Donation attempt from IP: ${clientIP}, Amount: ₹${amount}`);
 
     // Enhanced validation
     const validationErrors = [];
