@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { FaCheckCircle, FaDownload, FaHeart, FaUsers, FaGraduationCap, FaArrowLeft, FaWhatsapp, FaPhone, FaEnvelope, FaHandHoldingHeart } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import nav from '../assets/nav.png';
 
 export default function DonationSuccess() {
   const location = useLocation();
@@ -17,35 +19,259 @@ export default function DonationSuccess() {
   };
 
   const handleDownloadReceipt = () => {
-    const receiptContent = `
-MA EQUAL FOUNDATION - DONATION RECEIPT
-
-Receipt Number: ${donation.receiptNumber}
-Donor Name: ${donation.name}
-Email: ${donation.email}
-Amount: ₹${donation.amount}
-Payment ID: ${donation.paymentId}
-Date: ${donation.date}
-Status: Successfully Completed
-
-Thank you for your generous contribution!
-
-MA Equal Foundation
-Chandausi road Near maulana khurshid Saif khan Sarai
-Sambhal, 244302 Uttar Pradesh, India
-Email: maequalfoundationtrust@gmail.com
-Phone: +91 7906891253
-    `;
-
-    const blob = new Blob([receiptContent], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `MA_Equal_Foundation_Receipt_${donation.receiptNumber}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait, millimeters, A4 size
+    
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    
+    // Load and add logo
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = function() {
+      generatePDFContent(true);
+    };
+    
+    img.onerror = function() {
+      generatePDFContent(false);
+    };
+    
+    const generatePDFContent = (hasLogo) => {
+      // Professional header with gradient effect
+      pdf.setFillColor(25, 118, 210); // Professional blue
+      pdf.rect(0, 0, pageWidth, 60, 'F');
+      
+      // Add white accent line
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 55, pageWidth, 5, 'F');
+      
+      if (hasLogo) {
+        try {
+          // Calculate proper logo dimensions (maintain aspect ratio)
+          const logoWidth = 25;
+          const logoHeight = 25;
+          const logoX = 15;
+          const logoY = 15;
+          
+          // Add logo with proper scaling
+          pdf.addImage(img, 'PNG', logoX, logoY, logoWidth, logoHeight, undefined, 'FAST');
+        } catch (error) {
+          console.log('Logo loading failed, continuing without logo');
+        }
+      }
+      
+      // Organization name and details
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(22);
+      
+      const orgNameX = hasLogo ? 45 : 15;
+      pdf.text('MA EQUAL FOUNDATION', orgNameX, 25);
+      
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Educational Trust & Social Welfare Organization', orgNameX, 33);
+      
+      pdf.setFontSize(9);
+      pdf.text('Reg. Address: Chandausi Road, Sambhal, UP - 244302', orgNameX, 40);
+      pdf.text('Email: maequalfoundationtrust@gmail.com | Phone: +91 7906891253', orgNameX, 47);
+      
+      // Receipt title section
+      let currentY = 75;
+      pdf.setFillColor(248, 250, 252);
+      pdf.roundedRect(15, currentY, pageWidth - 30, 20, 3, 3, 'F');
+      
+      pdf.setTextColor(25, 118, 210);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(18);
+      pdf.text('DONATION RECEIPT', pageWidth / 2, currentY + 13, { align: 'center' });
+      
+      currentY += 35;
+      
+      // Two-column layout for receipt and donor info
+      const leftColWidth = (pageWidth - 40) / 2 - 5;
+      const rightColWidth = (pageWidth - 40) / 2 - 5;
+      const leftColX = 15;
+      const rightColX = 15 + leftColWidth + 10;
+      
+      // Receipt Details (Left Column)
+      pdf.setFillColor(255, 255, 255);
+      pdf.setDrawColor(220, 220, 220);
+      pdf.setLineWidth(0.5);
+      pdf.roundedRect(leftColX, currentY, leftColWidth, 60, 5, 5, 'FD');
+      
+      pdf.setTextColor(25, 118, 210);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.text('RECEIPT DETAILS', leftColX + 5, currentY + 10);
+      
+      pdf.setTextColor(0, 0, 0);
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(9);
+      
+      let detailY = currentY + 20;
+      
+      // Receipt fields with proper formatting
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Receipt No:', leftColX + 5, detailY);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text(`${donation.receiptNumber}`, leftColX + 5, detailY + 5);
+      
+      detailY += 15;
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Date & Time:', leftColX + 5, detailY);
+      pdf.setFont('helvetica', 'normal');
+      // Format date properly
+      const formattedDate = new Date(donation.date).toLocaleString('en-IN', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      pdf.text(formattedDate, leftColX + 5, detailY + 5);
+      
+      detailY += 15;
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Payment ID:', leftColX + 5, detailY);
+      pdf.setFont('helvetica', 'normal');
+      // Handle long payment IDs
+      const paymentId = donation.paymentId.toString();
+      if (paymentId.length > 20) {
+        pdf.text(paymentId.substring(0, 20), leftColX + 5, detailY + 5);
+        pdf.text(paymentId.substring(20), leftColX + 5, detailY + 10);
+      } else {
+        pdf.text(paymentId, leftColX + 5, detailY + 5);
+      }
+      
+      // Donor Information (Right Column)
+      pdf.setFillColor(255, 255, 255);
+      pdf.roundedRect(rightColX, currentY, rightColWidth, 60, 5, 5, 'FD');
+      
+      pdf.setTextColor(25, 118, 210);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.text('DONOR INFORMATION', rightColX + 5, currentY + 10);
+      
+      pdf.setTextColor(0, 0, 0);
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(9);
+      
+      let donorY = currentY + 20;
+      
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Name:', rightColX + 5, donorY);
+      pdf.setFont('helvetica', 'normal');
+      // Handle long names
+      const donorName = donation.name.toString();
+      if (donorName.length > 25) {
+        pdf.text(donorName.substring(0, 25), rightColX + 5, donorY + 5);
+        pdf.text(donorName.substring(25), rightColX + 5, donorY + 10);
+        donorY += 5;
+      } else {
+        pdf.text(donorName, rightColX + 5, donorY + 5);
+      }
+      
+      donorY += 15;
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Email:', rightColX + 5, donorY);
+      pdf.setFont('helvetica', 'normal');
+      // Handle long emails
+      const email = donation.email.toString();
+      if (email.length > 25) {
+        pdf.text(email.substring(0, 25), rightColX + 5, donorY + 5);
+        pdf.text(email.substring(25), rightColX + 5, donorY + 10);
+      } else {
+        pdf.text(email, rightColX + 5, donorY + 5);
+      }
+      
+      currentY += 80;
+      
+      // Donation Amount - Professional highlight section
+      pdf.setFillColor(76, 175, 80); // Professional green
+      pdf.roundedRect(15, currentY, pageWidth - 30, 35, 8, 8, 'F');
+      
+      // White content box inside
+      pdf.setFillColor(255, 255, 255);
+      pdf.roundedRect(20, currentY + 5, pageWidth - 40, 25, 5, 5, 'F');
+      
+      // Amount text with proper rupee symbol
+      pdf.setTextColor(76, 175, 80);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(14);
+      pdf.text('DONATION AMOUNT', 25, currentY + 15);
+      
+      // Format amount with proper Indian currency formatting
+      const amount = parseFloat(donation.amount);
+      const formattedAmount = amount.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      
+      pdf.setFontSize(24);
+      pdf.setTextColor(25, 118, 210);
+      // Use proper rupee symbol
+      pdf.text(`₹ ${formattedAmount}`, 25, currentY + 25);
+      
+      // Status badge
+      pdf.setFillColor(76, 175, 80);
+      pdf.roundedRect(pageWidth - 70, currentY + 8, 45, 15, 3, 3, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(10);
+      pdf.text('✓ VERIFIED', pageWidth - 67, currentY + 17);
+      
+      currentY += 50;
+      
+      // Thank you section
+      pdf.setFillColor(255, 248, 225); // Warm yellow
+      pdf.roundedRect(15, currentY, pageWidth - 30, 30, 5, 5, 'F');
+      
+      pdf.setTextColor(184, 134, 11);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(14);
+      pdf.text('🙏 THANK YOU FOR YOUR GENEROSITY', pageWidth / 2, currentY + 12, { align: 'center' });
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text('Your contribution will help provide quality education to underprivileged children.', pageWidth / 2, currentY + 22, { align: 'center' });
+      
+      currentY += 45;
+      
+      // Contact information footer
+      pdf.setDrawColor(220, 220, 220);
+      pdf.setLineWidth(0.5);
+      pdf.line(15, currentY, pageWidth - 15, currentY);
+      
+      currentY += 10;
+      
+      pdf.setTextColor(100, 100, 100);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(10);
+      pdf.text('CONTACT INFORMATION', 15, currentY);
+      
+      currentY += 8;
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(8);
+      pdf.text('📍 Chandausi Road Near Maulana Khurshid Saif Khan Sarai, Sambhal - 244302, Uttar Pradesh', 15, currentY);
+      currentY += 6;
+      pdf.text('📧 maequalfoundationtrust@gmail.com', 15, currentY);
+      currentY += 6;
+      pdf.text('📞 +91 7906891253 | 💬 WhatsApp: +91 7906891253', 15, currentY);
+      
+      // Footer disclaimer
+      currentY += 15;
+      pdf.setTextColor(150, 150, 150);
+      pdf.setFont('helvetica', 'italic');
+      pdf.setFontSize(7);
+      pdf.text('This is a computer-generated receipt and does not require a signature. Keep this receipt for your records.', pageWidth / 2, currentY, { align: 'center' });
+      
+      // Save the PDF
+      pdf.save(`MA_Equal_Foundation_Receipt_${donation.receiptNumber}.pdf`);
+    };
+    
+    // Try to load the logo
+    img.src = nav;
   };
 
   return (
@@ -164,7 +390,7 @@ Phone: +91 7906891253
                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 sm:py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
                   >
                     <FaDownload className="mr-2" />
-                    Download Receipt
+                    Download PDF Receipt
                   </button>
                   <Link
                     to="/donate"
