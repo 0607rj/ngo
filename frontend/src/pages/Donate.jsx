@@ -146,6 +146,12 @@ export default function Donate() {
     // Create order on backend
     const orderData = await createRazorpayOrder(amount);
     if (!orderData) return;
+    
+    // Safety timeout to reset loading state (in case something goes wrong)
+    const loadingTimeout = setTimeout(() => {
+      console.warn('⚠️ Payment timeout - resetting loading state');
+      setLoading(false);
+    }, 30000); // 30 seconds timeout
 
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -158,43 +164,50 @@ export default function Donate() {
       handler: function (response) {
         console.log('✅ Payment completed successfully!', response);
         
-        // Prepare success data immediately
+        // Generate immediate receipt number from payment ID
+        const tempReceiptNumber = 'MEF' + response.razorpay_payment_id.slice(-8).toUpperCase();
+        
+        // Prepare success data immediately (no waiting)
         const successData = {
           name: donorInfo.name,
           amount: amount,
-          receiptNumber: 'Generated after verification',
+          receiptNumber: tempReceiptNumber,
           email: donorInfo.email,
           paymentId: response.razorpay_payment_id,
-          date: new Date().toLocaleString('en-IN')
+          date: new Date().toISOString() // Use ISO string for proper date formatting
         };
         
         console.log('🚀 Redirecting to success page immediately...');
         
-        // Reset form and loading state
+        // Clear timeout and reset form and loading state IMMEDIATELY
+        clearTimeout(loadingTimeout);
         setSelectedAmount('');
         setCustomAmount('');
         setDonorInfo({ name: '', email: '', phone: '' });
         setLoading(false);
         
-        // Navigate immediately - payment was successful in Razorpay
+        // Navigate immediately - don't wait for verification
         navigate('/donation-success', { 
           state: { donationData: successData },
           replace: true 
         });
         
-        // Start verification in background (don't wait for it)
-        verifyPayment({
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-          donor: donorInfo,
-          amount: amount
-        }).then(() => {
-          console.log('✅ Background verification completed');
-        }).catch((error) => {
-          console.error('❌ Background verification failed:', error);
-          // Don't show error to user since they're already on success page
-        });
+        // Verify payment in background (don't block UI)
+        setTimeout(() => {
+          verifyPayment({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            donor: donorInfo,
+            amount: amount
+          }).then((verificationData) => {
+            console.log('✅ Background verification completed:', verificationData);
+            // Could update localStorage or send notification if needed
+          }).catch((error) => {
+            console.error('❌ Background verification failed:', error);
+            // Don't show error to user since they're already on success page
+          });
+        }, 100);
       },
       prefill: {
         name: donorInfo.name,
@@ -211,24 +224,35 @@ export default function Donate() {
       },
       modal: {
         ondismiss: function() {
+          clearTimeout(loadingTimeout);
           setLoading(false);
         }
       }
     };
 
     const razorpay = new window.Razorpay(options);
+    
+    // Ensure loading is reset on payment failure
     razorpay.on('payment.failed', function (response) {
       console.error('💳 Payment failed:', response);
+      clearTimeout(loadingTimeout);
       setLoading(false);
       alert(`Payment failed: ${response.error.description}`);
     });
     
-    // Add success logging
+    // Add success logging - loading already handled in handler
     razorpay.on('payment.success', function (response) {
       console.log('🎉 Razorpay payment.success event fired:', response);
     });
     
-    razorpay.open();
+    // Add error handling for razorpay initialization
+    try {
+      razorpay.open();
+    } catch (error) {
+      console.error('Failed to open Razorpay:', error);
+      setLoading(false);
+      alert('Failed to initialize payment gateway. Please try again.');
+    }
   };
 
   return (

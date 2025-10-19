@@ -47,34 +47,55 @@ export default function DonationSuccess() {
       
       if (hasLogo) {
         try {
-          // Calculate proper logo dimensions (maintain aspect ratio)
-          const logoWidth = 25;
-          const logoHeight = 25;
-          const logoX = 15;
-          const logoY = 15;
+          // Get image dimensions and calculate proper scaling
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
           
-          // Add logo with proper scaling
-          pdf.addImage(img, 'PNG', logoX, logoY, logoWidth, logoHeight, undefined, 'FAST');
+          // Calculate aspect ratio to prevent stretching
+          const imgAspectRatio = img.width / img.height;
+          const maxLogoWidth = 20;
+          const maxLogoHeight = 20;
+          
+          let logoWidth, logoHeight;
+          
+          if (imgAspectRatio > 1) {
+            // Landscape image
+            logoWidth = maxLogoWidth;
+            logoHeight = maxLogoWidth / imgAspectRatio;
+          } else {
+            // Portrait or square image
+            logoHeight = maxLogoHeight;
+            logoWidth = maxLogoHeight * imgAspectRatio;
+          }
+          
+          const logoX = 20;
+          const logoY = 15 + (20 - logoHeight) / 2; // Center vertically
+          
+          // Add logo with proper aspect ratio
+          pdf.addImage(canvas, 'PNG', logoX, logoY, logoWidth, logoHeight, undefined, 'FAST');
         } catch (error) {
-          console.log('Logo loading failed, continuing without logo');
+          console.log('Logo processing failed, continuing without logo');
         }
       }
       
       // Organization name and details
       pdf.setTextColor(255, 255, 255);
       pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(22);
+      pdf.setFontSize(20);
       
-      const orgNameX = hasLogo ? 45 : 15;
-      pdf.text('MA EQUAL FOUNDATION', orgNameX, 25);
+      const orgNameX = hasLogo ? 50 : 20;
+      pdf.text('MA EQUAL FOUNDATION', orgNameX, 22);
       
-      pdf.setFontSize(11);
+      pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('Educational Trust & Social Welfare Organization', orgNameX, 33);
+      pdf.text('Educational Trust & Social Welfare Organization', orgNameX, 30);
       
-      pdf.setFontSize(9);
-      pdf.text('Reg. Address: Chandausi Road, Sambhal, UP - 244302', orgNameX, 40);
-      pdf.text('Email: maequalfoundationtrust@gmail.com | Phone: +91 7906891253', orgNameX, 47);
+      pdf.setFontSize(8);
+      pdf.text('Established for promoting education and social welfare', orgNameX, 37);
+      pdf.text('Registration: Chandausi Road, Sambhal, UP - 244302', orgNameX, 44);
       
       // Receipt title section
       let currentY = 75;
@@ -121,14 +142,40 @@ export default function DonationSuccess() {
       pdf.setFont('helvetica', 'bold');
       pdf.text('Date & Time:', leftColX + 5, detailY);
       pdf.setFont('helvetica', 'normal');
-      // Format date properly
-      const formattedDate = new Date(donation.date).toLocaleString('en-IN', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      // Format date properly - handle different date formats
+      let formattedDate;
+      try {
+        const date = new Date(donation.date);
+        if (isNaN(date.getTime())) {
+          // If date is invalid, use current date
+          formattedDate = new Date().toLocaleString('en-IN', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+        } else {
+          formattedDate = date.toLocaleString('en-IN', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+        }
+      } catch (error) {
+        formattedDate = new Date().toLocaleString('en-IN', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+      }
       pdf.text(formattedDate, leftColX + 5, detailY + 5);
       
       detailY += 15;
@@ -213,13 +260,13 @@ export default function DonationSuccess() {
       // Use proper rupee symbol
       pdf.text(`₹ ${formattedAmount}`, 25, currentY + 25);
       
-      // Status badge
+      // Status badge with rupee symbol
       pdf.setFillColor(76, 175, 80);
       pdf.roundedRect(pageWidth - 70, currentY + 8, 45, 15, 3, 3, 'F');
       pdf.setTextColor(255, 255, 255);
       pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(10);
-      pdf.text('✓ VERIFIED', pageWidth - 67, currentY + 17);
+      pdf.text('₹ VERIFIED', pageWidth - 67, currentY + 17);
       
       currentY += 50;
       
@@ -238,26 +285,48 @@ export default function DonationSuccess() {
       
       currentY += 45;
       
-      // Contact information footer
-      pdf.setDrawColor(220, 220, 220);
-      pdf.setLineWidth(0.5);
-      pdf.line(15, currentY, pageWidth - 15, currentY);
+      // Contact information footer - enhanced design
+      pdf.setFillColor(248, 250, 252);
+      pdf.roundedRect(15, currentY, pageWidth - 30, 35, 5, 5, 'F');
+      
+      currentY += 8;
+      
+      pdf.setTextColor(25, 118, 210);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.text('CONTACT INFORMATION', 20, currentY);
       
       currentY += 10;
       
-      pdf.setTextColor(100, 100, 100);
+      // Address
+      pdf.setTextColor(60, 60, 60);
       pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(10);
-      pdf.text('CONTACT INFORMATION', 15, currentY);
+      pdf.setFontSize(9);
+      pdf.text('📍 Address:', 20, currentY);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Chandausi Road Near Maulana Khurshid Saif Khan Sarai', 50, currentY);
+      currentY += 5;
+      pdf.text('Sambhal - 244302, Uttar Pradesh, India', 50, currentY);
       
       currentY += 8;
+      
+      // Email and Phone in two columns
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('📧 Email:', 20, currentY);
       pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(8);
-      pdf.text('📍 Chandausi Road Near Maulana Khurshid Saif Khan Sarai, Sambhal - 244302, Uttar Pradesh', 15, currentY);
-      currentY += 6;
-      pdf.text('📧 maequalfoundationtrust@gmail.com', 15, currentY);
-      currentY += 6;
-      pdf.text('📞 +91 7906891253 | 💬 WhatsApp: +91 7906891253', 15, currentY);
+      pdf.text('maequalfoundationtrust@gmail.com', 45, currentY);
+      
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('📞 Phone:', 20, currentY + 5);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('+91 7906891253', 45, currentY + 5);
+      
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('💬 WhatsApp:', 120, currentY + 5);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('+91 7906891253', 155, currentY + 5);
+      
+      currentY += 15;
       
       // Footer disclaimer
       currentY += 15;
