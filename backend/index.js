@@ -46,7 +46,11 @@ app.use(cors({
 
 // Routes with specific rate limiting
 app.use("/api/contact", contactSpamLimiter, contactRoutes);
-app.use("/api/donations", donationSecurityLimiter, donationRoutes);
+
+// IMPORTANT: Apply rate limiting only to donation creation, not verification
+// This prevents payment verification from being blocked while maintaining security
+app.use("/api/donations/create-order", donationSecurityLimiter);  // Limit payment attempts
+app.use("/api/donations", donationRoutes);  // Allow unrestricted verification
 
 // Home route
 app.get("/", (req, res) => {

@@ -53,10 +53,12 @@ export const createAdvancedLimiter = (options) => {
   });
 };
 
-// Donation-specific rate limiter with enhanced security
+// Donation-specific rate limiter for ORDER CREATION ONLY
+// Applied only to /create-order endpoint, NOT to verification
+// This prevents spam while allowing proper payment verification
 export const donationSecurityLimiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
-  max: 3, // 3 attempts per 5 minutes
+  max: 3, // 3 order creation attempts per 5 minutes
   message: {
     success: false,
     error: "Too many donation attempts detected. This is for security purposes.",
