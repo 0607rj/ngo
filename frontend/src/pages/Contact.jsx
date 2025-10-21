@@ -26,7 +26,7 @@ const Contact = () => {
     setSubmitStatus({ type: '', message: '' });
 
     try {
-      // Use Formspree directly - no backend needed!
+      // Using Formspree for contact form - simple and reliable
       const response = await fetch('https://formspree.io/f/xdkwwdzb', {
         method: 'POST',
         headers: {
@@ -37,9 +37,7 @@ const Contact = () => {
           email: formData.email,
           phone: formData.phone,
           subject: formData.subject || "Contact Form Submission",
-          message: formData.message,
-          _replyto: formData.email, // This tells Formspree to use this as reply-to
-          _subject: `New Contact: ${formData.subject || "No Subject"}` // Custom subject line
+          message: formData.message
         })
       });
 
@@ -57,13 +55,13 @@ const Contact = () => {
           message: ''
         });
       } else {
-        throw new Error(`Formspree error: ${response.status}`);
+        throw new Error('Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus({
         type: 'error',
-        message: '❌ An error occurred. Please check your connection and try again.'
+        message: '❌ Failed to send message. Please check your connection and try again.'
       });
     } finally {
       setLoading(false);
