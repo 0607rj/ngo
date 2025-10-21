@@ -7,7 +7,6 @@ const DonationSchema = new mongoose.Schema({
   mobile: { type: String, required: true },
   amount: { type: Number, required: true },
   purpose: { type: String, default: 'General Donation' },
-  cause: { type: mongoose.Schema.Types.ObjectId, ref: 'Cause' },
   
   // Razorpay payment details
   orderId: { type: String }, // Razorpay order ID

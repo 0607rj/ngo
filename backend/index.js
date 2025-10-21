@@ -2,11 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import contactRoutes from "./routes/contactRoutes.js";
 import donationRoutes from "./routes/donations.js";
 import { 
   generalAPILimiter, 
-  contactSpamLimiter, 
   donationSecurityLimiter 
 } from "./middleware/rateLimiting.js";
 import { securityMiddleware } from "./middleware/security.js";
@@ -44,11 +42,8 @@ app.use(cors({
   optionsSuccessStatus: 200 // For legacy browser support
 }));
 
-// Routes with specific rate limiting
-app.use("/api/contact", contactSpamLimiter, contactRoutes);
-
+// Routes - Contact forms use Formspree, only donations need backend
 // IMPORTANT: Apply rate limiting only to donation creation, not verification
-// This prevents payment verification from being blocked while maintaining security
 app.use("/api/donations/create-order", donationSecurityLimiter);  // Limit payment attempts
 app.use("/api/donations", donationRoutes);  // Allow unrestricted verification
 

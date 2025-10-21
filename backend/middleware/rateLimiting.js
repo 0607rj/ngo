@@ -80,29 +80,8 @@ export const donationSecurityLimiter = rateLimit({
   }
 });
 
-// Contact form limiter with spam protection
-export const contactSpamLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 5, // 5 submissions per 10 minutes
-  message: {
-    success: false,
-    error: "Too many contact form submissions. Please wait before sending another message.",
-    retryAfter: "10 minutes"
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-  handler: (req, res) => {
-    const ip = req.ip || req.connection.remoteAddress;
-    console.warn(`🚫 Contact rate limit exceeded for IP: ${ip}`);
-    
-    res.status(429).json({
-      success: false,
-      error: "Too many contact form submissions. Please wait before sending another message.",
-      retryAfter: "10 minutes",
-      timestamp: new Date().toISOString()
-    });
-  }
-});
+// Contact forms now use Formspree - no backend rate limiting needed
+// Removed contactSpamLimiter as it's no longer used
 
 // General API protection
 export const generalAPILimiter = rateLimit({

@@ -1,7 +1,6 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import Donation from '../models/Donation.js';
-import Cause from '../models/Cause.js';
 import nodemailer from 'nodemailer';
 
 // Initialize Razorpay instance only when needed
