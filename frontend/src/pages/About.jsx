@@ -13,49 +13,49 @@ import {
 
 const teamMembers = [
   {
-    name: "Sarah Johnson",
+    name: "Amir Chaudhary",
     role: "Executive Director",
-    image: "/public/team1.jpg",
-    description: "Leading our mission with 15+ years of humanitarian experience.",
+    image: "/src/assets/Amir chaudhary.jpg",
+    description: "Leading our mission with dedication and vision for educational empowerment.",
   },
   {
-    name: "Michael Chen",
+    name: "Muzammil Chaudhary",
     role: "Program Director",
-    image: "/public/team2.jpg",
-    description: "Overseeing our educational and healthcare initiatives.",
+    image: "/src/assets/Muzammil chaudhary .jpg",
+    description: "Overseeing our educational programs and community development initiatives.",
   },
   {
-    name: "Priya Patel",
+    name: "Mamta Yadav",
     role: "Community Outreach",
-    image: "/public/team3.jpg",
-    description: "Building partnerships and engaging with local communities.",
+    image: "/src/assets/mamta yadav.jpg",
+    description: "Building partnerships and engaging with local communities for maximum impact.",
   },
   {
-    name: "David Wilson",
+    name: "Chaudhary Sumit Singh",
     role: "Finance Director",
-    image: "/public/team4.jpg",
-    description: "Ensuring transparent and effective use of donations.",
+    image: "/src/assets/chaudhary sumit singh.jpg",
+    description: "Ensuring transparent and effective use of donations and financial resources.",
   },
 ];
 
 const achievements = [
   {
-    number: "50K+",
+    number: "10K+",
     title: "Lives Impacted",
     description: "Through our various programs and initiatives",
   },
   {
-    number: "100+",
+    number: "10+",
     title: "Projects Completed",
     description: "Across education, healthcare, and community development",
   },
   {
-    number: "25+",
+    number: "5+",
     title: "Partner Organizations",
     description: "Working together for a better future",
   },
   {
-    number: "10+",
+    number: "2+",
     title: "Years of Service",
     description: "Dedicated to making a difference",
   },
@@ -158,11 +158,21 @@ export default function About() {
                 key={idx}
                 className="bg-white rounded-lg shadow-lg overflow-hidden"
               >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-48 object-cover"
-                />
+                {(member.name === "Mamta Yadav" || member.name === "Chaudhary Sumit Singh") ? (
+                  <div className="w-full h-48 bg-gray-100 flex items-center justify-center">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
                   <p className="text-blue-600 mb-2">{member.role}</p>

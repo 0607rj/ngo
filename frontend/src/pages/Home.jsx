@@ -7,6 +7,7 @@ import f1 from '../assets/f1.jpg';
 import f2 from '../assets/f2.jpg';
 import f3 from '../assets/f3.jpg';
 import f4 from '../assets/f4.jpg';
+import m1 from '../assets/m1.jpg';
 import { Link } from "react-router-dom";
 import { 
   FaGraduationCap, 
@@ -20,9 +21,9 @@ import {
 } from "react-icons/fa";
 
 const impactNumbers = [
-  { number: "1000+", label: "Students Supported", icon: FaGraduationCap },
-  { number: "50+", label: "Teachers Engaged", icon: FaChalkboardTeacher },
-  { number: "25+", label: "School Partners", icon: FaHandHoldingHeart },
+  { number: "100+", label: "Students Supported", icon: FaGraduationCap },
+  { number: "10+", label: "Teachers Engaged", icon: FaChalkboardTeacher },
+  { number: "15+", label: "School Partners", icon: FaHandHoldingHeart },
   { number: "95%", label: "Success Rate", icon: FaStar },
 ];
 
@@ -82,7 +83,7 @@ export default function Home() {
           
           {/* Placeholder for background image - uncomment and add your image path later */}
           { <img 
-            src={bg} 
+            src={m1} 
             alt="Students in classroom" 
             className="absolute inset-0 w-full h-full object-cover"
           /> }
