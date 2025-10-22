@@ -34,6 +34,10 @@ app.use(cors({
     "http://localhost:5175",
     "https://ma-equal-foundadtion.netlify.app",
     "https://maequalfoundation.netlify.app",
+    "https://maequalfoundation.com",
+    "https://www.maequalfoundation.com",
+    "http://maequalfoundation.com",
+    "http://www.maequalfoundation.com",
     process.env.FRONTEND_URL
   ].filter(Boolean),
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
