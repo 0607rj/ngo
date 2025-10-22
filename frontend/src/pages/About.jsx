@@ -11,29 +11,35 @@ import {
   FaSeedling
 } from "react-icons/fa";
 
+// Import team member images
+import amirImage from "../assets/Amir chaudhary.jpg";
+import muzammilImage from "../assets/Muzammil chaudhary .jpg";
+import mamtaImage from "../assets/mamta yadav.jpg";
+import sumitImage from "../assets/chaudhary sumit singh.jpg";
+
 const teamMembers = [
   {
     name: "Amir Chaudhary",
     role: "Executive Director",
-    image: "/src/assets/Amir chaudhary.jpg",
+    image: amirImage,
     description: "Leading our mission with dedication and vision for educational empowerment.",
   },
   {
     name: "Muzammil Chaudhary",
     role: "Program Director",
-    image: "/src/assets/Muzammil chaudhary .jpg",
+    image: muzammilImage,
     description: "Overseeing our educational programs and community development initiatives.",
   },
   {
     name: "Mamta Yadav",
     role: "Community Outreach",
-    image: "/src/assets/mamta yadav.jpg",
+    image: mamtaImage,
     description: "Building partnerships and engaging with local communities for maximum impact.",
   },
   {
     name: "Chaudhary Sumit Singh",
     role: "Finance Director",
-    image: "/src/assets/chaudhary sumit singh.jpg",
+    image: sumitImage,
     description: "Ensuring transparent and effective use of donations and financial resources.",
   },
 ];
