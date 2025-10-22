@@ -1,7 +1,7 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import Donation from '../models/Donation.js';
-impimport nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer';
 
 // Initialize Razorpay instance only when needed
 const getRazorpayInstance = () => {

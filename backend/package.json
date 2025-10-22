@@ -4,12 +4,16 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -19,5 +23,8 @@
     "nodemailer": "^7.0.9",
     "nodemon": "^3.1.10",
     "razorpay": "^2.9.6"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.2"
   }
 }

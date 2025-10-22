@@ -18,7 +18,12 @@ export default function Donate() {
     email: '',
     phone: ''
   });
-  const predefinedAmounts = [100, 500, 1000, 5000];
+  const predefinedAmounts = [
+    { amount: 800, label: '₹800', description: '1 Month Education & Health Care' },
+    { amount: 2400, label: '₹2400', description: 'Quarterly Education & Health Care' },
+    { amount: 4500, label: '₹4500', description: 'Half Yearly Education & Health Care' },
+    { amount: 11000, label: '₹11000', description: '1 Year Education, School Supplies & Health Care' }
+  ];
 
   // Handle donor info change
   const handleDonorInfoChange = (e) => {
@@ -352,26 +357,23 @@ export default function Donate() {
                 />
               </div>
               
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                {predefinedAmounts.map((amount) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                {predefinedAmounts.map((item) => (
                   <button
-                    key={amount}
+                    key={item.amount}
                     onClick={() => {
-                      setSelectedAmount(amount);
-                      setCustomAmount('');
+                      setSelectedAmount(item.amount);
+                      setCustomAmount(item.amount.toString());
                     }}
                     className={`p-4 sm:p-6 rounded-xl border-2 transition-all transform hover:scale-105 ${
-                      selectedAmount === amount
+                      selectedAmount === item.amount
                         ? 'border-blue-600 bg-blue-50 text-blue-600 shadow-blue-100 shadow-lg'
                         : 'border-gray-100 hover:border-blue-300 hover:bg-blue-50/50'
                     }`}
                   >
-                    <div className="text-2xl font-bold">₹{amount}</div>
-                    <div className="text-sm text-gray-500 mt-1">
-                      {amount === 100 && 'Basic Support'}
-                      {amount === 500 && 'Good Impact'}
-                      {amount === 1000 && 'Great Change'}
-                      {amount === 5000 && 'Major Impact'}
+                    <div className="text-xl sm:text-2xl font-bold">{item.label}</div>
+                    <div className="text-xs sm:text-sm text-gray-500 mt-1">
+                      {item.description}
                     </div>
                   </button>
                 ))}
@@ -386,6 +388,11 @@ export default function Donate() {
                   onChange={(e) => {
                     setCustomAmount(e.target.value);
                     setSelectedAmount('');
+                  }}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && customAmount && !loading) {
+                      handleDonate();
+                    }
                   }}
                   className="w-full p-4 border-2 border-gray-200 rounded-xl text-center text-xl font-semibold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   min="1"
@@ -430,25 +437,29 @@ export default function Donate() {
                 Quick UPI Payment
               </h3>
               
-              <div className="relative group mb-6 sm:mb-8">
+              <div className="relative group mb-4">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl blur-xl opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                <div className="relative bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                <div className="relative bg-white rounded-2xl p-3 sm:p-4 shadow-lg">
                   <img 
-                    src= {qr}
+                    src={qr}
                     alt="UPI QR Code"
-                    className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto object-contain rounded-xl shadow-md"
+                    className="w-48 h-48 sm:w-56 sm:h-56 mx-auto object-contain rounded-xl shadow-md"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
 
+              {/* UPI ID Section - Commented out for future use */}
+              {/*
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-4 sm:p-6 text-center">
                 <p className="text-sm sm:text-base text-gray-600 mb-2">Or use UPI ID</p>
                 <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent break-all">
                   maequalfoundation@upi
                 </p>
               </div>
+              */}
             </div>
+
           </div>
         </div>
       </section>
