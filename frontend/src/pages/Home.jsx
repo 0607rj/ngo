@@ -17,7 +17,9 @@ import {
   FaUsers,
   FaHandHoldingHeart,
   FaStar,
-  FaChalkboardTeacher
+  FaChalkboardTeacher,
+  FaPlay,
+  FaYoutube
 } from "react-icons/fa";
 
 const impactNumbers = [
@@ -230,6 +232,98 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* YouTube Video Section */}
+      <section className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-200/30 to-indigo-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-200/20 to-pink-200/20 rounded-full blur-3xl"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+              <FaYoutube className="text-lg" />
+              <span>Featured Video</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Our Foundation in Action
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Experience our mission through this inspiring video showcasing real stories and meaningful impact
+            </p>
+          </div>
+
+          {/* Enhanced Video Card */}
+          <div className="max-w-3xl mx-auto">
+            <div className="relative group">
+              {/* Outer Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-red-500 via-purple-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+              
+              {/* Main Card */}
+              <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div className="cursor-pointer" onClick={() => window.open('https://youtube.com/shorts/42h206N8k70?si=4n5saUTrxPrZ7iWP', '_blank')}>
+                  {/* Video Thumbnail */}
+                  <div className="relative h-80 flex items-center justify-center overflow-hidden">
+                    {/* Background Thumbnail Image */}
+                    <img 
+                      src={bg} 
+                      alt="MA Equal Foundation Video Thumbnail" 
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    
+                    {/* Light overlay for text visibility */}
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    
+                    {/* Central Content */}
+                    <div className="relative z-10 text-center text-white">
+                      {/* Large Play Button */}
+                      <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-md rounded-full border-4 border-white/30 shadow-2xl transform group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300 mb-6">
+                        <FaPlay className="text-white text-2xl ml-1 drop-shadow-lg" />
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold mb-2 drop-shadow-lg">MA Equal Foundation</h3>
+                      <p className="text-lg text-white/90 mb-4 drop-shadow">Journey of Hope & Education</p>
+                      
+                      {/* Duration Badge */}
+                      <div className="inline-flex items-center space-x-1 bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                        <span>▶</span>
+                        <span>Short Film</span>
+                      </div>
+                    </div>
+
+                    {/* YouTube Branding */}
+                    <div className="absolute top-4 right-4">
+                      <div className="bg-white/20 backdrop-blur-md rounded-lg p-3 shadow-lg">
+                        <FaYoutube className="text-white text-2xl drop-shadow-lg" />
+                      </div>
+                    </div>
+
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+
+                  {/* Enhanced Video Info */}
+                  <div className="p-8 text-center bg-gradient-to-b from-white to-gray-50">
+                    <p className="text-gray-700 text-lg mb-4 leading-relaxed">
+                      "Watch our inspiring journey of transforming lives through education and community support. See real stories, real impact."
+                    </p>
+                    
+                    <div className="flex items-center justify-center space-x-3">
+                      <div className="flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                        <FaPlay className="text-sm" />
+                        <span>Watch Now</span>
+                      </div>
+                      <div className="text-gray-500 text-sm">
+                        Click to open in YouTube
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

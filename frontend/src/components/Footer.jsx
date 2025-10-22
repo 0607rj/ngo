@@ -37,7 +37,7 @@ const Footer = () => {
                 className="text-gray-300 hover:text-blue-600 transition-colors">
                 <FaLinkedin size={24} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://youtube.com/@amirqidwai146?si=C_QTrYScVGctM2ym" target="_blank" rel="noopener noreferrer"
                 className="text-gray-300 hover:text-red-600 transition-colors">
                 <FaYoutube size={24} />
               </a>
