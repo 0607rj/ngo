@@ -314,6 +314,7 @@ export default function Donate() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Razorpay Section */}
+                        {/* QR Code Section */}
             <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-600 rounded-full blur-xl opacity-10"></div>
@@ -426,7 +427,7 @@ export default function Donate() {
             </div>
 
             {/* QR Code Section */}
-            <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+            <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between h-full">
               <div className="relative">
                 <div className="absolute inset-0 bg-purple-600 rounded-full blur-xl opacity-10"></div>
                 <div className="bg-gradient-to-r from-purple-600 to-purple-400 rounded-2xl w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto relative">
@@ -437,16 +438,49 @@ export default function Donate() {
                 Quick UPI Payment
               </h3>
               
-              <div className="relative group mb-4">
+              <div className="relative group mb-6 sm:mb-8">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl blur-xl opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                <div className="relative bg-white rounded-2xl p-3 sm:p-4 shadow-lg">
+                <div className="relative bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
                   <img 
                     src={qr}
                     alt="UPI QR Code"
-                    className="w-48 h-48 sm:w-56 sm:h-56 mx-auto object-contain rounded-xl shadow-md"
+                    className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto object-contain rounded-xl shadow-md"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
+              </div>
+
+              {/* QR Code Instructions */}
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-4 sm:p-6 text-center mt-4">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-purple-600 font-bold text-sm">1</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Scan QR code with any UPI app</p>
+                </div>
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-purple-600 font-bold text-sm">2</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Enter your donation amount</p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-purple-600 font-bold text-sm">3</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Complete the payment securely</p>
+                </div>
+              </div>
+              
+              {/* Additional Info Section to match height */}
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-4 sm:p-6 text-center">
+                <p className="text-sm sm:text-base text-gray-600 mb-3">Scan QR Code with any UPI app</p>
+                <div className="flex justify-center space-x-2 mb-3">
+                  <span className="bg-white px-3 py-1 rounded-full text-xs font-medium text-purple-600 shadow-sm">Google Pay</span>
+                  <span className="bg-white px-3 py-1 rounded-full text-xs font-medium text-purple-600 shadow-sm">PhonePe</span>
+                  <span className="bg-white px-3 py-1 rounded-full text-xs font-medium text-purple-600 shadow-sm">Paytm</span>
+                </div>
+                <p className="text-xs text-gray-500">Secure & instant payment processing</p>
               </div>
 
               {/* UPI ID Section - Commented out for future use */}
