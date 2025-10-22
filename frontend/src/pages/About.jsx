@@ -86,7 +86,7 @@ export default function About() {
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Empowering Through
             <span className="block bg-gradient-to-r from-yellow-300 to-yellow-100 bg-clip-text text-transparent">
-              Education Since 2015
+              Education Since 2023
             </span>
           </h1>
           <p className="text-xl md:text-2xl max-w-2xl text-blue-100">
