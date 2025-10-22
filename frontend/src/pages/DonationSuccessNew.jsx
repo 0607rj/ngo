@@ -304,7 +304,7 @@ export default function DonationSuccess() {
       pdf.setFontSize(9);
       pdf.text('📍 Address:', 20, currentY);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('Chandausi Road Near Maulana Khurshid Saif Khan Sarai', 50, currentY);
+      pdf.text('Chandausi Road, Saif Khan Sarai', 50, currentY);
       currentY += 5;
       pdf.text('Sambhal - 244302, Uttar Pradesh, India', 50, currentY);
       

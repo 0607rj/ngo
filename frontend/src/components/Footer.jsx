@@ -88,7 +88,7 @@ const Footer = () => {
               <div className="flex items-center space-x-3 justify-center sm:justify-start">
                 <FaMapMarkerAlt className="text-blue-400 flex-shrink-0" />
                 <p className="text-sm">
-                  Chandausi road Near maulana khurshid Saif khan Sarai<br />
+                  Chandausi road, Saif khan Sarai<br />
                   Sambhal, 244302 Uttar Pradesh, India
                 </p>
               </div>

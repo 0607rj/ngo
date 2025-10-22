@@ -148,7 +148,7 @@ const Contact = () => {
               </div>
             </div>
             <h3 className="text-2xl font-bold mb-3 text-blue-900">Location</h3>
-            <p className="text-gray-600 mb-1">Chandausi road Near maulana khurshid Saif khan Sarai</p>
+            <p className="text-gray-600 mb-1">Chandausi road, Saif khan Sarai</p>
             <p className="text-gray-600">Sambhal, 244302 Uttar Pradesh, India</p>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <p className="text-sm text-gray-500">

@@ -419,7 +419,7 @@ const sendThankYouEmail = async (donor, amount, paymentId, receiptNumber) => {
           <!-- Footer -->
           <div style="background: #2563EB; color: white; padding: 30px; text-align: center; border-radius: 0 0 10px 10px;">
             <h3 style="margin: 0 0 15px 0; font-size: 20px;">MA Equal Foundation</h3>
-            <p style="margin: 5px 0; font-size: 14px;">Chandausi road Near maulana khurshid Saif khan Sarai</p>
+            <p style="margin: 5px 0; font-size: 14px;">Chandausi road, Saif khan Sarai</p>
             <p style="margin: 5px 0; font-size: 14px;">Sambhal, 244302 Uttar Pradesh, India</p>
             <p style="margin: 5px 0; font-size: 14px;">Email: maequalfoundationtrust@gmail.com</p>
             <div style="margin-top: 20px;">

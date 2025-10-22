@@ -104,7 +104,7 @@ REACT_APP_RAZORPAY_KEY_ID=rzp_live_xxxxx  # Live Razorpay Key ID
 Make sure these are updated everywhere:
 - **Phone**: +91 7906891253, +91 7455908415
 - **Email**: maequalfoundationtrust@gmail.com
-- **Address**: Chandausi road Near maulana khurshid Saif khan Sarai, Sambhal, 244302 UP
+- **Address**: Chandausi road, Saif khan Sarai, Sambhal, 244302 UP
 - **WhatsApp**: +91 7906891253
 - **Facebook**: https://www.facebook.com/share/1BU4hsSJpF/
 - **Instagram**: https://www.instagram.com/maequalfoundation?igsh=b2hmaTBzYnJqeWR3
