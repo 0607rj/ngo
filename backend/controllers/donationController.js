@@ -1,7 +1,7 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import Donation from '../models/Donation.js';
-import nodemailer from 'nodemailer';
+impimport nodemailer from 'nodemailer';
 
 // Initialize Razorpay instance only when needed
 const getRazorpayInstance = () => {
@@ -79,18 +79,6 @@ export const createOrder = async (req, res) => {
       }
     }
 
-    // Check if email already exists in recent donations (prevent spam)
-    if (donor && donor.email) {
-      const recentDonation = await Donation.findOne({
-        email: donor.email,
-        createdAt: { $gte: new Date(Date.now() - 5 * 60 * 1000) } // 5 minutes
-      });
-
-      if (recentDonation) {
-        validationErrors.push("Please wait 5 minutes between donations from the same email");
-      }
-    }
-
     if (validationErrors.length > 0) {
       return res.status(400).json({
         success: false,
@@ -114,19 +102,41 @@ export const createOrder = async (req, res) => {
     const razorpay = getRazorpayInstance();
     const order = await razorpay.orders.create(options);
 
-    // Save order details to database
-    const donation = new Donation({
-      orderId: order.id,
-      name: donor.name,
+    // Check if there's an existing pending donation for this email
+    const existingDonation = await Donation.findOne({
       email: donor.email,
-      mobile: donor.phone,
-      amount: amount,
-      currency: order.currency,
-      status: 'pending',
-      createdAt: new Date(),
+      status: 'pending'
     });
 
-    await donation.save();
+    let donation;
+    if (existingDonation) {
+      // Update existing pending donation with new order details
+      donation = await Donation.findByIdAndUpdate(
+        existingDonation._id,
+        {
+          orderId: order.id,
+          name: donor.name,
+          mobile: donor.phone,
+          amount: amount,
+          currency: order.currency,
+          updatedAt: new Date(),
+        },
+        { new: true }
+      );
+    } else {
+      // Create new donation record
+      donation = new Donation({
+        orderId: order.id,
+        name: donor.name,
+        email: donor.email,
+        mobile: donor.phone,
+        amount: amount,
+        currency: order.currency,
+        status: 'pending',
+        createdAt: new Date(),
+      });
+      await donation.save();
+    }
 
     res.status(200).json({
       success: true,
@@ -443,14 +453,7 @@ const sendAdminNotificationEmail = async (donor, amount, paymentId, donationReco
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #10B981, #059669); color: white; padding: 30px; text-align: center;">
             <h1 style="margin: 0; font-size: 28px;">🎉 NEW DONATION RECEIVED!</h1>
-            <p style="margin: 10px 0 0 0; font-size: 16px;">MA Equal Foundation</p>
-          </div>
-          
-          <!-- Main Content -->
-          <div style="padding: 30px; background: #f9f9f9;">
-            <!-- Amount Highlight -->
-            <div style="background: linear-gradient(45deg, #d1fae5, #a7f3d0); border-left: 5px solid #10B981; padding: 20px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
-              <h2 style="margin: 0; color: #065f46; font-size: 36px;">₹${amount}</h2>
+           <h2 style="margin: 0; color: #065f46; font-size: 36px;">₹${amount}</h2>
               <p style="margin: 5px 0 0 0; color: #065f46; font-weight: bold;">Donation Amount</p>
             </div>
             
