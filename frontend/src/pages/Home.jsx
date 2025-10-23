@@ -264,7 +264,7 @@ export default function Home() {
               
               {/* Main Card */}
               <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden">
-                <div className="cursor-pointer" onClick={() => window.open('https://youtube.com/shorts/42h206N8k70?si=4n5saUTrxPrZ7iWP', '_blank')}>
+                <div className="cursor-pointer" onClick={() => window.open('https://youtube.com/shorts/jIcEg4kYYR0?si=-gC2EesfG4thLoAB', '_blank')}>
                   {/* Video Thumbnail */}
                   <div className="relative h-80 flex items-center justify-center overflow-hidden">
                     {/* Background Thumbnail Image */}
