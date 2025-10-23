@@ -62,7 +62,7 @@ export default function Volunteer() {
         },
         body: JSON.stringify({
           ...formData,
-          subject: 'New Volunteer Registration - MA Equal Foundation',
+          subject: 'New Volunteer Registration - M A Equal Foundation',
           interests: formData.interests.join(', ')
         })
       });

@@ -16,7 +16,7 @@ const Footer = () => {
               <h3 className="text-white text-xl font-bold"></h3>
             </div>
             <p className="text-sm px-4 sm:px-0">
-              MA Equal Foundation - Empowering communities through education, 
+              M A Equal Foundation - Empowering communities through education, 
               social welfare, and sustainable development initiatives.
             </p>
             {/* Social Media Links */}
@@ -78,6 +78,11 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link to="/cancellation-refunds" className="hover:text-blue-400 transition-colors">
+                  Refund Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -122,7 +127,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center">
             <div className="text-sm text-gray-400">
-              © {new Date().getFullYear()} MA Equal Foundation. All rights reserved.
+              © {new Date().getFullYear()} M A Equal Foundation. All rights reserved.
             </div>
           </div>
         </div>

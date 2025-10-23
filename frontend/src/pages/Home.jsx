@@ -270,7 +270,7 @@ export default function Home() {
                     {/* Background Thumbnail Image */}
                     <img 
                       src={bg} 
-                      alt="MA Equal Foundation Video Thumbnail" 
+                      alt="M A Equal Foundation Video Thumbnail" 
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     
@@ -284,7 +284,7 @@ export default function Home() {
                         <FaPlay className="text-white text-2xl ml-1 drop-shadow-lg" />
                       </div>
                       
-                      <h3 className="text-2xl font-bold mb-2 drop-shadow-lg">MA Equal Foundation</h3>
+                      <h3 className="text-2xl font-bold mb-2 drop-shadow-lg">M A Equal Foundation</h3>
                       <p className="text-lg text-white/90 mb-4 drop-shadow">Journey of Hope & Education</p>
                       
                       {/* Duration Badge */}

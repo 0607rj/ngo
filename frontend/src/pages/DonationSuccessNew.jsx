@@ -87,7 +87,7 @@ export default function DonationSuccess() {
       pdf.setFontSize(20);
       
       const orgNameX = hasLogo ? 50 : 20;
-      pdf.text('MA EQUAL FOUNDATION', orgNameX, 22);
+  pdf.text('M A EQUAL FOUNDATION', orgNameX, 22);
       
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'normal');
@@ -314,7 +314,7 @@ export default function DonationSuccess() {
       pdf.setFont('helvetica', 'bold');
       pdf.text('📧 Email:', 20, currentY);
       pdf.setFont('helvetica', 'normal');
-      pdf.text('maequalfoundationtrust@gmail.com', 45, currentY);
+  pdf.text('maequalfoundationtrust@gmail.com', 45, currentY);
       
       pdf.setFont('helvetica', 'bold');
       pdf.text('📞 Phone:', 20, currentY + 5);
@@ -420,7 +420,7 @@ export default function DonationSuccess() {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Organization</p>
-                        <p className="font-semibold text-gray-800">MA Equal Foundation</p>
+                        <p className="font-semibold text-gray-800">M A Equal Foundation</p>
                       </div>
                     </div>
                   </div>
@@ -513,7 +513,7 @@ export default function DonationSuccess() {
                 "Your generosity today creates ripples of positive change that will be felt for generations. 
                 Thank you for believing in our mission and making education accessible to all."
               </p>
-              <p className="text-blue-600 font-bold text-lg">- MA Equal Foundation Team 💙</p>
+              <p className="text-blue-600 font-bold text-lg">- M A Equal Foundation Team 💙</p>
             </div>
             
             <div className="mt-8">

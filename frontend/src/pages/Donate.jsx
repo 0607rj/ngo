@@ -162,7 +162,7 @@ export default function Donate() {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: orderData.amount,
       currency: orderData.currency,
-      name: "MA Equal Foundation",
+  name: "M A Equal Foundation",
       description: "Donation for Education & Social Welfare",
       image: nav, // Add your logo here
       order_id: orderData.id,

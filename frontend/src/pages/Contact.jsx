@@ -91,7 +91,7 @@ const Contact = () => {
             <h1 className="text-4xl md:text-6xl font-bold">
               Contact Us
               <span className="block text-3xl md:text-4xl mt-2 bg-gradient-to-r from-yellow-300 to-yellow-100 bg-clip-text text-transparent">
-                MA Equal Foundation
+                M A Equal Foundation
               </span>
             </h1>
             
