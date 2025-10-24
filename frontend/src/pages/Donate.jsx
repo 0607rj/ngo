@@ -4,7 +4,7 @@ import { FaQrcode, FaHandHoldingHeart, FaHeart, FaGraduationCap, FaSpinner } fro
 import { RiSecurePaymentLine, RiHeartsFill } from 'react-icons/ri';
 import qr from '../assets/qr.jpg';
 
-import nav from '../assets/nav.png';
+import logo from '../assets/logo.png';
 
 
 export default function Donate() {
@@ -164,7 +164,7 @@ export default function Donate() {
       currency: orderData.currency,
   name: "M A Equal Foundation",
       description: "Donation for Education & Social Welfare",
-      image: nav, // Add your logo here
+  image: logo, // Add your logo here
       order_id: orderData.id,
       handler: function (response) {
         console.log('✅ Payment completed successfully!', response);

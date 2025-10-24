@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import nav from '../assets/nav.png';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
   const location = useLocation();
@@ -26,7 +26,13 @@ export default function Navbar() {
     <nav className="bg-white shadow sticky top-0 z-50">
       <div className="container mr-[10px] px-4 py-4 flex justify-between items-center">
         <Link to="/" className="font-bold text-2xl text-blue-600">
-          <img src={nav} alt="" className='w-[150px] h-[47px] ml-[10px]'/>
+          <div className="flex items-center">
+            <img src={logo} alt="M A Equal Foundation Logo" className='w-[60px] h-[60px] object-contain'/>
+            <div className="flex flex-col ml-4">
+              <span className="text-xl font-bold text-blue-700 leading-tight">M A EQUAL</span>
+              <span className="text-lg font-semibold text-green-600 leading-tight">FOUNDATION</span>
+            </div>
+          </div>
         </Link>
 
         {/* Hamburger Button */}

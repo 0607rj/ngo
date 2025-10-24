@@ -1,4 +1,4 @@
-# MA EQUAL FOUNDATION - DEPLOYMENT GUIDE
+# M A EQUAL FOUNDATION - DEPLOYMENT GUIDE
 # =====================================================
 
 ## 🚀 HOSTINGER DEPLOYMENT CHECKLIST

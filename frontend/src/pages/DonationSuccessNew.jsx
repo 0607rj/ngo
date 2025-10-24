@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { FaCheckCircle, FaDownload, FaHeart, FaUsers, FaGraduationCap, FaArrowLeft, FaWhatsapp, FaPhone, FaEnvelope, FaHandHoldingHeart } from 'react-icons/fa';
 import jsPDF from 'jspdf';
-import nav from '../assets/nav.png';
+import logo from '../assets/logo.png';
 
 export default function DonationSuccess() {
   const location = useLocation();
@@ -82,20 +82,22 @@ export default function DonationSuccess() {
       }
       
       // Organization name and details
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(20);
-      
-      const orgNameX = hasLogo ? 50 : 20;
-  pdf.text('M A EQUAL FOUNDATION', orgNameX, 22);
-      
-      pdf.setFontSize(10);
-      pdf.setFont('helvetica', 'normal');
-      pdf.text('Educational Trust & Social Welfare Organization', orgNameX, 30);
-      
-      pdf.setFontSize(8);
-      pdf.text('Established for promoting education and social welfare', orgNameX, 37);
-      pdf.text('Registration: Chandausi Road, Sambhal, UP - 244302', orgNameX, 44);
+    // Two-line organization name
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(20);
+    const orgNameX = hasLogo ? 50 : 20;
+    pdf.text('M A EQUAL', orgNameX, 22);
+    pdf.setTextColor(34, 197, 94); // Tailwind green-600
+    pdf.setFontSize(18);
+    pdf.text('FOUNDATION', orgNameX, 32);
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Educational Trust & Social Welfare Organization', orgNameX, 40);
+    pdf.setFontSize(8);
+    pdf.text('Established for promoting education and social welfare', orgNameX, 47);
+    pdf.text('Registration: Chandausi Road, Sambhal, UP - 244302', orgNameX, 54);
       
       // Receipt title section
       let currentY = 75;

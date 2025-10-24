@@ -1,4 +1,4 @@
-# MA Equal Foundation - Website Handover Documentation
+# M A Equal Foundation - Website Handover Documentation
 
 ## 🎯 Project Overview
 **Website Type:** NGO Donation & Information Website  
@@ -106,4 +106,4 @@ ngo/
 ---
 **Handover Date:** October 16, 2025  
 **Developer:** [YOUR NAME & CONTACT]  
-**Client:** MA Equal Foundation
+**Client:** M A Equal Foundation

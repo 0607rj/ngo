@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
-import nav from '../assets/nav.png';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -11,9 +11,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 lg:gap-8">
           {/* Organization Info */}
           <div className="space-y-4 text-center sm:text-left">
-            <div className="flex items-center space-x-2 justify-center sm:justify-start">
-              <img src={nav} alt="NGO Logo" className=" w-[150px] h-[47px] ml-[10px]" />
-              <h3 className="text-white text-xl font-bold"></h3>
+            <div className="flex items-center justify-center sm:justify-start">
+              <img src={logo} alt="M A Equal Foundation Logo" className="w-[60px] h-[60px] object-contain" />
+              <div className="flex flex-col ml-4 text-left">
+                <span className="text-xl font-bold text-blue-200 leading-tight">M A EQUAL</span>
+                <span className="text-lg font-semibold text-green-600 leading-tight">FOUNDATION</span>
+              </div>
             </div>
             <p className="text-sm px-4 sm:px-0">
               M A Equal Foundation - Empowering communities through education, 
@@ -33,7 +36,7 @@ const Footer = () => {
                 className="text-gray-300 hover:text-pink-500 transition-colors">
                 <FaInstagram size={24} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/adhwaaltayyebpvtltd?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer"
                 className="text-gray-300 hover:text-blue-600 transition-colors">
                 <FaLinkedin size={24} />
               </a>
