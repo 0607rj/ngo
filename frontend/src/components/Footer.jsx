@@ -28,7 +28,7 @@ const Footer = () => {
                 className="text-gray-300 hover:text-blue-500 transition-colors">
                 <FaFacebook size={24} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+                <a href="https://x.com/Amir_Qidwai?t=jpcSEP-5KxphEpx6ENe_HQ&s=08" target="_blank" rel="noopener noreferrer"
                 className="text-gray-300 hover:text-blue-400 transition-colors">
                 <FaTwitter size={24} />
               </a>
