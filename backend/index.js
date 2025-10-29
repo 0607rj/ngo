@@ -72,11 +72,7 @@ app.get("/api/test-razorpay", (req, res) => {
 
 // Health check route
 app.get("/api/health", (req, res) => {
-  res.json({ 
-    status: "OK", 
-    message: "MA Equal Foundation API is healthy",
-    timestamp: new Date().toISOString()
-  });
+  res.json({ status: "ok" });
 });
 
 // Server start
