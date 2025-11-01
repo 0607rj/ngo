@@ -338,38 +338,6 @@ export default function Donate() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Razorpay Section */}
-            {/* Bank Transfer Section */}
-            <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between h-full">
-              <div className="relative flex flex-col items-center">
-                <div className="absolute inset-0 bg-green-600 rounded-full blur-xl opacity-10"></div>
-                <div className="bg-gradient-to-r from-green-600 to-green-400 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2 mt-2">
-                  <FaHandHoldingHeart className="text-4xl text-white" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold my-4 text-center bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
-                  Donate via Bank Transfer
-                </h3>
-                <p className="text-base sm:text-lg text-gray-700 font-medium mb-2">Support our mission directly by transferring your donation to our bank account. Every contribution helps us empower more children!</p>
-              </div>
-              <hr className="my-4 border-green-200" />
-              <div className="bg-white/80 rounded-2xl p-4 sm:p-6 text-center shadow-sm">
-                <div className="grid grid-cols-1 gap-3">
-                  <BankDetail label="Account Name" value="M A EQUAL FOUNDATION TRUST" />
-                  <BankDetail label="Account Number" value="925020041536577" />
-                  <BankDetail label="Account Type" value="Current Account" />
-                  <BankDetail label="IFSC Code" value="UTIB0001616" />
-                  <BankDetail label="Bank Name" value="AXIS BANK" />
-                  <BankDetail label="SWIFT Code" value="AXISINBB282" />
-                  <BankDetail label="Branch" value="SAMBHAL" />
-                  <BankDetail label="State" value="UTTAR PRADESH" />
-                </div>
-                <p className="text-xs text-gray-500 mt-4">Please mention your name in the bank transfer remarks for easy tracking.<br />Email your transaction details to <span className="font-semibold text-blue-700">maequalfoundationtrust@gmail.com</span> for a donation receipt.</p>
-              </div>
-              <hr className="my-4 border-green-200" />
-              <div className="flex flex-col items-center mt-2">
-                <FaGraduationCap className="text-2xl text-green-500 mb-2" />
-                <span className="text-green-700 font-semibold">Thank you for supporting education and brighter futures!</span>
-              </div>
-            </div>
 
             {/* QR Code Section */}
             <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
@@ -551,39 +519,6 @@ export default function Donate() {
               */}
             </div>
 
-            {/* Why Donate Card */}
-            <div className="bg-white p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 flex flex-col justify-between h-full">
-              <div className="relative flex flex-col items-center">
-                <div className="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-10"></div>
-                <div className="bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-2 mt-2">
-                  <FaHeart className="text-4xl text-white" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold my-4 text-center bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent">
-                  Why Donate?
-                </h3>
-                <ul className="list-disc list-inside text-left text-gray-700 text-base sm:text-lg font-medium mb-4 w-full max-w-xs mx-auto">
-                  <li>Empower underprivileged children with free, quality education</li>
-                  <li>Provide essential school supplies and digital learning resources</li>
-                  <li>Support community development and skill-building programs</li>
-                  <li>Help us reach more children in rural and urban areas</li>
-                  <li>Ensure 95% of funds go directly to educational programs</li>
-                  <li>Contribute to building libraries and modern classrooms</li>
-                  <li>Enable after-school tutoring and mentoring</li>
-                  <li>Be part of a movement for lasting social change</li>
-                </ul>
-                <blockquote className="italic text-gray-600 text-center my-4 px-2">“Education is the most powerful weapon which you can use to change the world.”<br /><span className="font-semibold text-yellow-700">– Nelson Mandela</span></blockquote>
-                <button className="mt-4 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-bold rounded-xl shadow hover:from-yellow-500 hover:to-yellow-600 transition">Become a Changemaker</button>
-              </div>
-              <hr className="my-4 border-yellow-200" />
-              <div className="flex flex-col items-center mt-2 mb-4">
-                <FaGraduationCap className="text-2xl text-yellow-500 mb-2" />
-                <span className="text-yellow-700 font-semibold">Together, we build brighter futures!</span>
-                <div className="mt-4 flex flex-col items-center">
-                  <FaHandHoldingHeart className="text-xl text-yellow-400 mb-2 animate-pulse" />
-                  <span className="text-xs text-gray-500">Thank you for making a difference!</span>
-                </div>
-              </div>
-            </div>
 
           </div>
         </div>
